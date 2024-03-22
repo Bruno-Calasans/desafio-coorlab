@@ -19,5 +19,5 @@
 </template>
 
 <script setup lang="ts">
-import CalcFormTravel from '@/components/CalcTravelForm.vue'
+import CalcFormTravel from '@/components/calc-travel-form/CalcTravelForm.vue'
 </script>
