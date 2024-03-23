@@ -8,10 +8,12 @@ with open('src/data.json', 'r', encoding='utf-8') as file:
 
 app = FastAPI()
 
+# start end-point
 @app.get('/')
 def home():
-    return {'message': 'hello'}
+    return {'message': 'api is online'}
 
+# return all the cities
 @app.get('/city')
 def get_city():
     try:
@@ -44,7 +46,7 @@ def get_travels_by_city(city: str):
     except NameError:
         raise HTTPException(500, "Server error")
     
-# return the confort and economic travels
+# return the fast/confortable and economic travels
 @app.get('/best-travels/{city}')
 def get_best_travels(city: str):
     try:
@@ -54,34 +56,39 @@ def get_best_travels(city: str):
         if len(cityTravels) == 1:
             travelResult.update({'confort': cityTravels[0], 'economic': cityTravels[0]})
 
-
         else:
             faster_travel = cityTravels[0]
             econ_travel = cityTravels[1]
-
-            lower_duration = hoursToInt(cityTravels[0].get('duration'))
-            lower_price = moneyToFloat(cityTravels[1].get('price_econ'))
-
+      
             for travel in cityTravels:
+
                 duration = hoursToInt(travel.get('duration'))
                 price_confort = moneyToFloat(travel.get('price_confort'))
                 price_econ = moneyToFloat(travel.get('price_econ'))
+
+                # faster travel's duration and price
+                faster_travel_duration = hoursToInt(faster_travel.get('duration'))
                 faster_price_confort = moneyToFloat(faster_travel.get('price_confort'))
-                lower_price_econ = moneyToFloat(faster_travel.get('price_confort'))
+                
+                 # economic travel's duration and price
+                econ_travel_duration = moneyToFloat(econ_travel.get('duration'))
+                econ_price_econ = moneyToFloat(econ_travel.get('price_econ'))
                 
                 # getting the faster travel
-                if duration < lower_duration:
+                if duration < faster_travel_duration:
                     faster_travel = travel
 
-                # getting the conforter travel
-                if duration == lower_duration and price_confort > faster_price_confort: 
+                # getting the faster and confortable travel
+                if duration == faster_travel_duration and price_confort > faster_price_confort: 
                     faster_travel = travel
 
-                # getting lower price travel
-                if price_econ < lower_price:
+                # getting the more economic travel
+                if price_econ < econ_price_econ:
                     econ_travel = travel
 
-                # if price_econ == lower_price and lower_price_econ
+                # getting tthe more economic travel and fast travel
+                if price_econ == econ_price_econ and duration < econ_travel_duration:
+                    econ_travel = travel
 
             travelResult.update({'confort': faster_travel, 'economic': econ_travel})
          
