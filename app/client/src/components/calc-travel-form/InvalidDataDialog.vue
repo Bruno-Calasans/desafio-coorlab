@@ -14,7 +14,7 @@
       <DialogFooter>
         <div class="flex justify-center w-full">
           <Button
-            @click="() => onClose()"
+            @click="onClose"
             size="sm"
             type="submit"
             class="font-bold bg-cyan-500 hover:bg-cyan-400 mt-8 w-32 p-2"
@@ -39,13 +39,10 @@ import { Button } from '@/components/ui/button'
 import { VisuallyHidden } from 'radix-vue'
 import { CircleAlert } from 'lucide-vue-next'
 
-defineProps({
-  isOpen: Boolean,
-  onClose: {
-    type: Function,
-    default() {
-      return
-    }
-  }
-})
+type InvalidDataDialogProps = {
+  isOpen: boolean
+  onClose: (e: Event) => void
+}
+
+defineProps<InvalidDataDialogProps>()
 </script>
