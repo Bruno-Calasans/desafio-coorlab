@@ -56,11 +56,22 @@ const selectCityHandler = (city: string) => (travelCity.value = city)
 const closeDialog = () => (showInvalidDataDialog.value = false)
 const openDialog = () => (showInvalidDataDialog.value = true)
 
+const props = defineProps({
+  onSucessSubmit: Function
+})
+
 const submitHandler = (e: Event) => {
   e.preventDefault()
 
-  if (!travelCity.value || !travelDate.value) {
+  const city = travelCity.value
+  const date = travelDate.value
+
+  if (!city || !date) {
     openDialog()
+  }
+
+  if (props.onSucessSubmit) {
+    props.onSucessSubmit({ city, date })
   }
 }
 </script>

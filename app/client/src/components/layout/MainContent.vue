@@ -13,7 +13,7 @@
         Calculadora de Viagem
       </header>
       <!-- Form -->
-      <CalcFormTravel />
+      <CalcFormTravel :onSucessSubmit="updateInput" />
 
       <!-- Result Area -->
     </div>
@@ -22,4 +22,20 @@
 
 <script setup lang="ts">
 import CalcFormTravel from '@/components/calc-travel-form/CalcTravelForm.vue'
+import { reactive } from 'vue'
+
+type TravelData = {
+  city: string
+  date: Date | null
+}
+
+const input = reactive<TravelData>({
+  city: '',
+  date: null
+})
+
+const updateInput = ({ city, date }: TravelData) => {
+  input.city = city
+  input.date = date
+}
 </script>
