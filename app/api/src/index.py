@@ -2,11 +2,22 @@ from fastapi import FastAPI, HTTPException
 import json
 from src.utils.hoursToInt import hoursToInt
 from src.utils.moneyToFloat import moneyToFloat
+from fastapi.middleware.cors import CORSMiddleware
 
 with open('src/data.json', 'r', encoding='utf-8') as file:
     travels: list[dict[str, str | int]] = json.load(file).get('transport')
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+    "http://localhost",
+    "http://localhost:8080"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # start end-point
 @app.get('/')
