@@ -17,7 +17,7 @@
         <CalcFormTravel :onSucessSubmit="updateTravels" />
 
         <!-- Result Area -->
-        <ResultArea :travels="travels" />
+        <ResultArea :travels="travels" :onClear="clearTravels" />
       </div>
     </div>
   </main>
@@ -31,4 +31,7 @@ import type { Travel } from '@/components/calc-travel-form/Travel'
 
 const travels = ref<Travel[]>([])
 const updateTravels = (updatedTravels: Travel[]) => (travels.value = updatedTravels)
+const clearTravels = () => {
+  travels.value = []
+}
 </script>
