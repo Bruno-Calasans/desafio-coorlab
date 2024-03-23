@@ -12,11 +12,13 @@
         <p class="text-md text-zinc-800 font-semibold uppercase">
           {{ travel.name }}
         </p>
+        <!-- Confort -->
         <p v-if="travelType === 'confort'" class="text-zinc-800">
           Leito: {{ travel.bed }} (completo)
         </p>
+        <!-- Economic -->
         <p v-if="travelType === 'economic'" class="text-zinc-800">
-          Poltrona: {{ travel.bed }} (convencional)
+          Poltrona: {{ travel.seat }} (convencional)
         </p>
         <p class="text-zinc-800">Tempo Estimado: {{ travel.duration }}</p>
       </div>
@@ -24,7 +26,9 @@
     <!-- Travel Price -->
     <div class="flex flex-col justify-center bg-zinc-300 p-3 rounded-sm w-[30%]">
       <p class="text-zinc-800 text-lg font-semibold">Preço</p>
+      <!-- Confort -->
       <p v-if="travelType === 'confort'" class="text-zinc-800">{{ travel.price_confort }}</p>
+      <!-- Economic -->
       <p v-if="travelType === 'economic'" class="text-zinc-800">{{ travel.price_econ }}</p>
     </div>
   </div>
