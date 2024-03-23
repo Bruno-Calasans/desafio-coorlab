@@ -62,7 +62,7 @@ const submitHandler = (e: Event) => {
   e.preventDefault()
 
   if (!travelCity.value || !travelDate.value) {
-    openDialog()
+    return openDialog()
   }
 
   // todo get travels from api
