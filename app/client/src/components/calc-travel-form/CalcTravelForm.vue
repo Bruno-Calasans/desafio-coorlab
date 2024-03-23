@@ -1,7 +1,7 @@
 <template>
-  <div class="flex gap-2 flex-1">
-    <!-- Form Area -->
-    <div class="flex flex-col justify-center bg-slate-200 p-3 w-[60%] rounded-md">
+  <div class="flex flex-col justify-center bg-slate-200 p-3 rounded-md w-[60%]">
+    <!-- Form -->
+    <div>
       <div>
         <!-- todo Icon Here -->
         <p class="text-lg text-zinc-600 font-bold mb-5">Calcule o valor da viagem</p>
@@ -32,20 +32,16 @@
 
     <!-- Invalid Data -->
     <InvalidDataDialog :isOpen="showInvalidDataDialog" :onClose="closeDialog" />
-
-    <!-- todo Result Area -->
-    <div class="flex text-xl grow-2 w-full justify-center items-center">
-      Nenhum dado selecionado
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import CitySelector from './CitySelector.vue'
 import DatePicker from '@/components/ui/data-picker'
 import { Button } from '@/components/ui/button'
 import InvalidDataDialog from '@/components/calc-travel-form/InvalidDataDialog.vue'
-import { ref } from 'vue'
+import type { Travel } from '@/components/calc-travel-form/Travel'
 
 const travelCity = ref('')
 const travelDate = ref<null | Date>(null)
@@ -56,22 +52,31 @@ const selectCityHandler = (city: string) => (travelCity.value = city)
 const closeDialog = () => (showInvalidDataDialog.value = false)
 const openDialog = () => (showInvalidDataDialog.value = true)
 
-const props = defineProps({
-  onSucessSubmit: Function
-})
+type CalcTravelFormProps = {
+  onSucessSubmit: (travels: Travel[]) => void
+}
+
+const props = defineProps<CalcTravelFormProps>()
 
 const submitHandler = (e: Event) => {
   e.preventDefault()
 
-  const city = travelCity.value
-  const date = travelDate.value
-
-  if (!city || !date) {
+  if (!travelCity.value || !travelDate.value) {
     openDialog()
   }
 
-  if (props.onSucessSubmit) {
-    props.onSucessSubmit({ city, date })
+  // todo get travels from api
+  const travel = {
+    id: 1,
+    name: 'Expresso Oriente',
+    price_confort: 'R$ 52.10',
+    price_econ: 'R$ 21.50',
+    city: 'São Paulo',
+    duration: '12h',
+    seat: '12C',
+    bed: '5A'
   }
+  const travels = [travel, travel]
+  props.onSucessSubmit(travels)
 }
 </script>
