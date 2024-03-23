@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import json
 
 with open('src/data.json', 'r') as file:
@@ -10,13 +10,13 @@ app = FastAPI()
 def home():
     return {'message': 'hello'}
 
-@app.get('/cities')
-def getCities():
-    cities: set[str] = set()
-
-    for travel in travels:
-        if 'city' in travel:
-            cities.add(travel.get('city'))
-
-    return cities
-        
+@app.get('/city')
+def get_city():
+    try:
+        cities: set[str] = set()
+        for travel in travels:
+            if 'city' in travel:
+                cities.add(travel.get('city'))
+        return cities
+    except:
+        raise HTTPException(500, "Server error")
