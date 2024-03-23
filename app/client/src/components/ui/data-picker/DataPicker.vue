@@ -28,7 +28,7 @@ defineProps({
         variant="outline"
         :class="
           cn(
-            'w-[280px] justify-start text-left font-normal bg-white text-zinc-600 hover:bg-white hover:text-zinc-600',
+            'w-full justify-start text-left font-normal bg-white text-zinc-600 hover:bg-white hover:text-zinc-600',
             !date && 'text-muted-foreground'
           )
         "
@@ -37,7 +37,7 @@ defineProps({
         <span>{{ date ? format(date, 'd/M/y') : text ?? 'Pick a Date' }}</span>
       </Button>
     </PopoverTrigger>
-    <PopoverContent class="w-auto p-0">
+    <PopoverContent class="w-full p-0">
       <Calendar v-model="date" @update:model-value="onSelect as any" />
     </PopoverContent>
   </Popover>

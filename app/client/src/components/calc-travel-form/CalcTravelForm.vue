@@ -30,6 +30,9 @@
       </form>
     </div>
 
+    <!-- Invalid Data -->
+    <InvalidDataDialog :isOpen="showInvalidDataDialog" :onClose="closeDialog" />
+
     <!-- todo Result Area -->
     <div class="flex text-xl grow-2 w-full justify-center items-center">
       Nenhum dado selecionado
@@ -40,23 +43,24 @@
 <script setup lang="ts">
 import CitySelector from './CitySelector.vue'
 import DatePicker from '@/components/ui/data-picker'
-import Button from '../ui/button/Button.vue'
+import { Button } from '@/components/ui/button'
+import InvalidDataDialog from '@/components/calc-travel-form/InvalidDataDialog.vue'
 import { ref } from 'vue'
 
 const travelCity = ref('')
 const travelDate = ref<null | Date>(null)
+const showInvalidDataDialog = ref(false)
 
-const selectDateHandler = (date: Date) => {
-  travelDate.value = date
-  console.log(travelDate.value)
-}
-
-const selectCityHandler = (city: string) => {
-  travelCity.value = city
-  console.log(travelCity.value)
-}
+const selectDateHandler = (date: Date) => (travelDate.value = date)
+const selectCityHandler = (city: string) => (travelCity.value = city)
+const closeDialog = () => (showInvalidDataDialog.value = false)
+const openDialog = () => (showInvalidDataDialog.value = true)
 
 const submitHandler = (e: Event) => {
   e.preventDefault()
+
+  if (!travelCity.value || !travelDate.value) {
+    openDialog()
+  }
 }
 </script>

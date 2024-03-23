@@ -5,7 +5,6 @@
       <p class="text-lg text-zinc-700">Bem-vindo, <span class="font-bold italic">usuário</span></p>
     </header>
 
-    <!-- Form -->
     <div class="text-black flex gap-2 flex-col h-[60%] w-full p-3 shadow-md">
       <!-- Form Title -->
       <header
@@ -13,7 +12,10 @@
       >
         Calculadora de Viagem
       </header>
+      <!-- Form -->
       <CalcFormTravel />
+
+      <!-- Result Area -->
     </div>
   </main>
 </template>
