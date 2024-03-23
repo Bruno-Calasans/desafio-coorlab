@@ -12,30 +12,23 @@
       >
         Calculadora de Viagem
       </header>
-      <!-- Form -->
-      <CalcFormTravel :onSucessSubmit="updateInput" />
+      <div class="flex flex-1">
+        <!-- Form -->
+        <CalcFormTravel :onSucessSubmit="updateTravels" />
 
-      <!-- Result Area -->
+        <!-- Result Area -->
+        <ResultArea :travels="travels" />
+      </div>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import CalcFormTravel from '@/components/calc-travel-form/CalcTravelForm.vue'
-import { reactive } from 'vue'
+import ResultArea from '@/components/result-area/ResultArea.vue'
+import type { Travel } from '@/components/calc-travel-form/Travel'
 
-type TravelData = {
-  city: string
-  date: Date | null
-}
-
-const input = reactive<TravelData>({
-  city: '',
-  date: null
-})
-
-const updateInput = ({ city, date }: TravelData) => {
-  input.city = city
-  input.date = date
-}
+const travels = ref<Travel[]>([])
+const updateTravels = (updatedTravels: Travel[]) => (travels.value = updatedTravels)
 </script>
