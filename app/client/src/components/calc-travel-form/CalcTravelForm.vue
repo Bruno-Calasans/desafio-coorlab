@@ -2,9 +2,10 @@
   <div class="flex flex-col justify-center bg-slate-200 p-3 rounded-md w-[60%]">
     <!-- Form -->
     <div>
-      <div>
+      <div class="flex gap-1 items-center mb-5">
         <!-- todo Icon Here -->
-        <p class="text-lg text-zinc-600 font-bold mb-5">Calcule o valor da viagem</p>
+        <HandCoins :size="25" />
+        <p class="text-lg text-zinc-600 font-bold">Calcule o valor da viagem</p>
       </div>
 
       <form class="flex flex-col gap-3" @submit="submitHandler">
@@ -43,6 +44,7 @@ import { Button } from '@/components/ui/button'
 import InvalidDataDialog from '@/components/calc-travel-form/InvalidDataDialog.vue'
 import type { BestTravels } from '@/components/calc-travel-form/Travel'
 import { useFetch } from '@vueuse/core'
+import { HandCoins } from 'lucide-vue-next'
 
 const travelCity = ref('')
 const travelDate = ref<null | Date>(null)
