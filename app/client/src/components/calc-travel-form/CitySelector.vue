@@ -17,16 +17,18 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { onBeforeMount, ref } from 'vue'
 
-const cities = ['São paulo', 'Fortaleza', 'Belo Horizonte']
+type CitySelectorProps = {
+  value: string
+  onSelect: (city: string) => void
+}
+defineProps<CitySelectorProps>()
 
-defineProps({
-  value: String,
-  onSelect: {
-    type: Function,
-    default(city: string) {
-      return city
-    }
-  }
+const cities = ref<string[]>([])
+
+// todo get cities from api
+onBeforeMount(async () => {
+  cities.value = ['São paulo', 'Fortaleza', 'Belo Horizonte']
 })
 </script>
