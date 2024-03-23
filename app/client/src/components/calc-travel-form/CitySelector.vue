@@ -29,8 +29,13 @@ defineProps<CitySelectorProps>()
 const cities = ref<string[]>([])
 
 const loadCities = async () => {
-  const { data } = await useFetch('http://localhost:3000/city').json()
-  cities.value = data.value
+  try {
+    const { data } = await useFetch('http://localhost:3000/city').json<string[]>()
+    if (!data.value) return
+    cities.value = data.value
+  } catch (error) {
+    cities.value = []
+  }
 }
 
 onBeforeMount(async () => {
