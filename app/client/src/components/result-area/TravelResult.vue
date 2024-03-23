@@ -1,49 +1,31 @@
 <template>
-  <!-- Confort Travel -->
-  <div v-if="travelType === 'confort'" class="flex gap-2">
-    <!-- Confort Info -->
+  <div class="flex gap-2">
     <div class="flex gap-2 items-center bg-zinc-300 rounded-sm w-[70%]">
       <!-- Icon -->
       <div class="flex justify-center items-center bg-cyan-500 h-full w-[20%] rounded-l-md">
-        <HandCoins color="white" :size="40" />
+        <HandCoins v-if="travelType === 'confort'" color="white" :size="40" />
+        <TimerReset v-if="travelType === 'economic'" color="white" :size="40" />
       </div>
 
+      <!-- Travel Info -->
       <div class="p-3">
-        <p class="text-lg text-zinc-800 font-semibold uppercase">
+        <p class="text-md text-zinc-800 font-semibold uppercase">
           {{ travel.name }}
         </p>
-        <p class="text-zinc-600">Leito: {{ travel.bed }} (completo)</p>
-        <p class="text-zinc-600">Tempo Estimado: {{ travel.duration }}</p>
+        <p v-if="travelType === 'confort'" class="text-zinc-800">
+          Leito: {{ travel.bed }} (completo)
+        </p>
+        <p v-if="travelType === 'economic'" class="text-zinc-800">
+          Poltrona: {{ travel.bed }} (convencional)
+        </p>
+        <p class="text-zinc-800">Tempo Estimado: {{ travel.duration }}</p>
       </div>
     </div>
-    <!-- Confort Price -->
+    <!-- Travel Price -->
     <div class="flex flex-col justify-center bg-zinc-300 p-3 rounded-sm w-[30%]">
       <p class="text-zinc-800 text-lg font-semibold">Preço</p>
-      <p class="text-zinc-600">{{ travel.price_confort }}</p>
-    </div>
-  </div>
-
-  <!-- Economic Travel -->
-  <div v-if="travelType === 'economic'" class="flex gap-2">
-    <!-- Confort Info -->
-    <div class="flex gap-2 items-center bg-zinc-300 rounded-sm w-[70%]">
-      <!-- Icon -->
-      <div class="flex justify-center items-center bg-cyan-500 h-full w-[20%] rounded-l-md">
-        <TimerReset color="white" :size="40" />
-      </div>
-
-      <div class="p-2">
-        <p class="text-lg text-zinc-800 font-semibold uppercase">
-          {{ travel.name }}
-        </p>
-        <p class="text-zinc-600">Leito: {{ travel.bed }} (convencional)</p>
-        <p class="text-zinc-600">Tempo Estimado: {{ travel.duration }}</p>
-      </div>
-    </div>
-    <!-- Confort Price -->
-    <div class="flex flex-col justify-center bg-zinc-300 p-2 rounded-sm w-[30%]">
-      <p class="text-zinc-800 text-lg font-semibold">Preço</p>
-      <p class="text-zinc-600">{{ travel.price_confort }}</p>
+      <p v-if="travelType === 'confort'" class="text-zinc-800">{{ travel.price_confort }}</p>
+      <p v-if="travelType === 'economic'" class="text-zinc-800">{{ travel.price_econ }}</p>
     </div>
   </div>
 </template>
