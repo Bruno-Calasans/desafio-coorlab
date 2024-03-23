@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { useFetch } from '@vueuse/core'
 import { onBeforeMount, ref } from 'vue'
 
 type CitySelectorProps = {
@@ -27,8 +28,12 @@ defineProps<CitySelectorProps>()
 
 const cities = ref<string[]>([])
 
-// todo get cities from api
+const loadCities = async () => {
+  const { data } = await useFetch('http://localhost:3000/city').json()
+  cities.value = data.value
+}
+
 onBeforeMount(async () => {
-  cities.value = ['São paulo', 'Fortaleza', 'Belo Horizonte']
+  await loadCities()
 })
 </script>
