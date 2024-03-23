@@ -20,3 +20,25 @@ def get_city():
         return cities
     except:
         raise HTTPException(500, "Server error")
+
+# return all avaliable travels in that city
+@app.get('/travel/{city}')
+def get_travels_by_city(city: str):
+    try:
+        foundCity = False
+        cities = get_city()
+        for c in cities:
+            print(c)
+            if c.lower() == city.lower(): foundCity = True
+
+        if foundCity == False:
+            raise HTTPException(404, "City not found")
+        
+        cityTravels = []
+        for travel in travels:
+            if 'city' in travel and travel.get('city').lower() == city.lower():
+                cityTravels.append(travel)
+        return cityTravels
+
+    except KeyError:
+        raise HTTPException(500, "Server error")
