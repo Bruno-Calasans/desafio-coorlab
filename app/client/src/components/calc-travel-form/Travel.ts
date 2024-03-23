@@ -8,3 +8,8 @@ export type Travel = {
   seat: string
   bed: string
 }
+
+export type BestTravels = {
+  confort: Travel
+  economic: Travel
+}

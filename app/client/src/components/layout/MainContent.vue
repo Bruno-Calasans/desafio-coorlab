@@ -27,11 +27,11 @@
 import { ref } from 'vue'
 import CalcFormTravel from '@/components/calc-travel-form/CalcTravelForm.vue'
 import ResultArea from '@/components/result-area/ResultArea.vue'
-import type { Travel } from '@/components/calc-travel-form/Travel'
+import type { BestTravels } from '@/components/calc-travel-form/Travel'
 
-const travels = ref<Travel[]>([])
-const updateTravels = (updatedTravels: Travel[]) => (travels.value = updatedTravels)
+const travels = ref<BestTravels | null>(null)
+const updateTravels = (updatedTravels: BestTravels | null) => (travels.value = updatedTravels)
 const clearTravels = () => {
-  travels.value = []
+  travels.value = null
 }
 </script>

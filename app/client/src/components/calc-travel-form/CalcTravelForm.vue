@@ -41,7 +41,8 @@ import CitySelector from './CitySelector.vue'
 import DatePicker from '@/components/ui/data-picker'
 import { Button } from '@/components/ui/button'
 import InvalidDataDialog from '@/components/calc-travel-form/InvalidDataDialog.vue'
-import type { Travel } from '@/components/calc-travel-form/Travel'
+import type { BestTravels } from '@/components/calc-travel-form/Travel'
+import { useFetch } from '@vueuse/core'
 
 const travelCity = ref('')
 const travelDate = ref<null | Date>(null)
@@ -53,30 +54,29 @@ const closeDialog = () => (showInvalidDataDialog.value = false)
 const openDialog = () => (showInvalidDataDialog.value = true)
 
 type CalcTravelFormProps = {
-  onSucessSubmit: (travels: Travel[]) => void
+  onSucessSubmit: (travels: BestTravels | null) => void
 }
 
 const props = defineProps<CalcTravelFormProps>()
 
-const submitHandler = (e: Event) => {
+const getBestTravels = async () => {
+  try {
+    const { data } = await useFetch(
+      `http://localhost:3000/best-travels/${travelCity.value}`
+    ).json<BestTravels>()
+    props.onSucessSubmit(data.value)
+  } catch (error) {
+    props.onSucessSubmit(null)
+  }
+}
+
+const submitHandler = async (e: Event) => {
   e.preventDefault()
 
   if (!travelCity.value || !travelDate.value) {
     return openDialog()
   }
 
-  // todo get travels from api
-  const travel = {
-    id: 1,
-    name: 'Expresso Oriente',
-    price_confort: 'R$ 52.10',
-    price_econ: 'R$ 21.50',
-    city: 'São Paulo',
-    duration: '12h',
-    seat: '12C',
-    bed: '5A'
-  }
-  const travels = [travel, travel]
-  props.onSucessSubmit(travels)
+  await getBestTravels()
 }
 </script>
