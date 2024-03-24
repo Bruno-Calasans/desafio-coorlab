@@ -19,7 +19,7 @@
     </div>
 
     <!-- Clear Btn -->
-    <div v-if="travels" class="flex w-full items-center justify-end">
+    <div v-if="travels" class="flex items-center justify-end">
       <Button
         @click="onClear"
         size="sm"
