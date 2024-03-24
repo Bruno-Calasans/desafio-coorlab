@@ -1,16 +1,12 @@
 #!/bin/bash
 
-echo "Implemente aqui o script para executar a sua solução"
+echo "Executing back-end..."
+cd api
+pipx install poethepoet
+poetry install
+poe dev &
 
-# back end
-# sh -ec 'cd api && pipx install poethepoet && poetry install && poe dev'
-# sh -ec 'cd ..'
-# cd api
-# pipx install poethepoet
-# poetry install
-# poe dev
-
-# front-end
-# cd ../client
-# npm install
-# npm run build
+echo "Executing front-end..."
+cd ../client
+npm install
+npm run dev
