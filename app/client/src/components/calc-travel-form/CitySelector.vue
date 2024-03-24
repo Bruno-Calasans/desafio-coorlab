@@ -1,7 +1,14 @@
 <template>
   <Select :modelValue="value" :onUpdate:modelValue="onSelect">
-    <SelectTrigger class="bg-white text-zinc-600">
-      <SelectValue placeholder="Selecione o destino" />
+    <SelectTrigger
+      :class="
+        cn(
+          'bg-white text-zinc-600 hover:text-zinc-800 px-4 py-2 transition',
+          !value && 'text-muted-foreground'
+        )
+      "
+    >
+      <SelectValue class="text-red" placeholder="Selecione o destino" />
     </SelectTrigger>
     <SelectContent class="bg-white text-zinc-600">
       <SelectItem v-for="city of cities" :value="city" :key="city">{{ city }}</SelectItem>
@@ -19,6 +26,7 @@ import {
 } from '@/components/ui/select'
 import { useFetch } from '@vueuse/core'
 import { onBeforeMount, ref } from 'vue'
+import { cn } from '@/lib/utils'
 
 type CitySelectorProps = {
   value: string

@@ -39,18 +39,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import CitySelector from './CitySelector.vue'
-import DatePicker from '@/components/ui/data-picker'
+import DatePicker from '@/components/ui/date-picker'
 import { Button } from '@/components/ui/button'
 import InvalidDataDialog from '@/components/calc-travel-form/InvalidDataDialog.vue'
 import type { BestTravels } from '@/components/calc-travel-form/Travel'
 import { useFetch } from '@vueuse/core'
 import { HandCoins } from 'lucide-vue-next'
+import type { DatePickerModel } from 'v-calendar/dist/types/src/use/datePicker.js'
 
 const travelCity = ref('')
-const travelDate = ref<null | Date>(null)
+const travelDate = ref<DatePickerModel | undefined>()
 const showInvalidDataDialog = ref(false)
 
-const selectDateHandler = (date: Date) => (travelDate.value = date)
+const selectDateHandler = (date?: DatePickerModel) => (travelDate.value = date)
 const selectCityHandler = (city: string) => (travelCity.value = city)
 const closeDialog = () => (showInvalidDataDialog.value = false)
 const openDialog = () => (showInvalidDataDialog.value = true)
