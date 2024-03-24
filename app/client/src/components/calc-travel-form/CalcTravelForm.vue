@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center bg-slate-200 p-3 rounded-md w-[60%]">
+  <div
+    class="flex flex-1 flex-col justify-center bg-slate-200 p-3 rounded-md max-w-[340px] min-w-[300px]"
+  >
     <!-- Form -->
     <div>
       <div class="flex gap-1 items-center mb-5">
@@ -11,13 +13,13 @@
       <form class="flex flex-col gap-3" @submit="submitHandler">
         <!-- City field -->
         <div class="flex flex-col gap-1">
-          <div class="text-zinc-600 font-bold">Destino</div>
+          <p class="text-zinc-600 font-bold">Destino</p>
           <CitySelector :value="travelCity" :onSelect="selectCityHandler" />
         </div>
 
         <!-- Date Picker Here -->
         <div>
-          <div class="text-zinc-600 font-bold">Data</div>
+          <p class="text-zinc-600 font-bold">Data</p>
           <DatePicker text="Escolha a data da viagem" :onSelect="selectDateHandler" />
         </div>
 
