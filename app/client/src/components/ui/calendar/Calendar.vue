@@ -84,26 +84,16 @@ const vCalendarSlots = computed(() => {
       class="absolute flex justify-between w-full px-4 top-3 z-[1]"
     >
       <button
-        :class="
-          cn(
-            buttonVariants({ variant: 'outline' }),
-            'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
-          )
-        "
+        :class="cn(buttonVariants({ variant: 'ghost' }), 'h-7 w-7 bg-transparent p-0 group')"
         @click="handleNav('prev')"
       >
-        <ChevronLeft class="w-4 h-4" />
+        <ChevronLeft class="w-4 h-4 text-black group-hover:text-white" />
       </button>
       <button
-        :class="
-          cn(
-            buttonVariants({ variant: 'outline' }),
-            'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
-          )
-        "
+        :class="cn(buttonVariants({ variant: 'ghost' }), 'h-7 w-7 bg-transparent p-0 group')"
         @click="handleNav('next')"
       >
-        <ChevronRight class="w-4 h-4" />
+        <ChevronRight class="w-4 h-4 text-black group-hover:text-white" />
       </button>
     </div>
 
@@ -112,10 +102,11 @@ const vCalendarSlots = computed(() => {
       v-bind="$attrs"
       v-model="modelValue"
       :model-modifiers="modelModifiers"
-      class="calendar"
+      class="calendar bg-white text-black font-bold"
       trim-weeks
       :transition="'none'"
       :columns="columns"
+      :min-date="new Date()"
     >
       <template v-for="(_, slot) of vCalendarSlots" #[slot]="scope">
         <slot :name="slot" v-bind="scope" />
